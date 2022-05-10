@@ -4,7 +4,10 @@ import React, { useState } from 'react';
 function App() {
   const defaultPos = { x: 1, y: 1 };
   const [bot, setBot] = useState(defaultPos);
-  const [obstacles, setObstacles] = useState([{ x: 2, y: 1 }]);
+  const [obstacles, setObstacles] = useState([
+    { x: 2, y: 1 },
+    { x: 5, y: 5 },
+  ]);
   const [gridSize, setGridSize] = useState(5);
 
   const addObstacle = (x, y) => {
@@ -59,7 +62,10 @@ function App() {
 
   const moveR = () => {
     const right = { ...bot, x: bot.x + 1 };
-    if (right in obstacles) {
+    const objFinder = obstacles.map((j) => {
+      return j.x === right.x && j.y === right.y;
+    });
+    if (objFinder.includes(true)) {
       console.log('There is something in the way!');
       return;
     }
@@ -72,12 +78,22 @@ function App() {
     }
   };
 
+  const where = () => {
+    console.log(bot);
+  };
+
+  const opps = () => {
+    console.log(obstacles);
+  };
+
   return (
     <div>
       <button onClick={moveU}>up</button>
       <button onClick={moveD}>down</button>
       <button onClick={moveL}>left</button>
       <button onClick={moveR}>right</button>
+      <button onClick={where}>help me</button>
+      <button onClick={opps}>where da opps</button>
     </div>
   );
 }
