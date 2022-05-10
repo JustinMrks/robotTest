@@ -1,23 +1,83 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
 
 function App() {
+  const defaultPos = { x: 1, y: 1 };
+  const [bot, setBot] = useState(defaultPos);
+  const [obstacles, setObstacles] = useState([{ x: 2, y: 1 }]);
+  const [gridSize, setGridSize] = useState(5);
+
+  const addObstacle = (x, y) => {
+    const newOb = { x: x, y: y };
+    setObstacles([...obstacles, newOb]);
+  };
+
+  const moveU = () => {
+    const up = { ...bot, y: bot.y - 1 };
+    if (up in obstacles) {
+      console.log('There is something in the way!');
+      return;
+    }
+    if (up.y < 0) {
+      console.log('Cannot move off of the grid!');
+      return;
+    } else {
+      console.log('Moving bot up one space!');
+      setBot(up);
+    }
+  };
+
+  const moveD = () => {
+    const down = { ...bot, y: bot.y + 1 };
+    if (down in obstacles) {
+      console.log('There is something in the way!');
+      return;
+    }
+    if (down.y > gridSize) {
+      console.log('Cannot move off of the grid!');
+      return;
+    } else {
+      console.log('Moving bot down one space!');
+      setBot(down);
+    }
+  };
+
+  const moveL = () => {
+    const left = { ...bot, x: bot.x - 1 };
+    if (left in obstacles) {
+      console.log('There is something in the way!');
+      return;
+    }
+    if (left.x < 0) {
+      console.log('Cannot move off of the grid!');
+      return;
+    } else {
+      console.log('Moving bot left one space!');
+      setBot(left);
+    }
+  };
+
+  const moveR = () => {
+    const right = { ...bot, x: bot.x + 1 };
+    if (right in obstacles) {
+      console.log('There is something in the way!');
+      return;
+    }
+    if (right.x > gridSize) {
+      console.log('Cannot move off of the grid!');
+      return;
+    } else {
+      console.log('Moving bot right one space!');
+      setBot(right);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={moveU}>up</button>
+      <button onClick={moveD}>down</button>
+      <button onClick={moveL}>left</button>
+      <button onClick={moveR}>right</button>
     </div>
   );
 }
