@@ -10,6 +10,14 @@ function App() {
   ]);
   const [gridSize, setGridSize] = useState(5);
 
+  const obsCheck = (future) => {
+    return obstacles
+      .map((ob) => {
+        return ob.x === future.x && ob.y === future.y;
+      })
+      .includes(true);
+  };
+
   const addObstacle = (x, y) => {
     const newOb = { x: x, y: y };
     setObstacles([...obstacles, newOb]);
@@ -17,7 +25,7 @@ function App() {
 
   const moveU = () => {
     const up = { ...bot, y: bot.y - 1 };
-    if (up in obstacles) {
+    if (obsCheck(up)) {
       console.log('There is something in the way!');
       return;
     }
@@ -32,7 +40,7 @@ function App() {
 
   const moveD = () => {
     const down = { ...bot, y: bot.y + 1 };
-    if (down in obstacles) {
+    if (obsCheck(down)) {
       console.log('There is something in the way!');
       return;
     }
@@ -47,7 +55,7 @@ function App() {
 
   const moveL = () => {
     const left = { ...bot, x: bot.x - 1 };
-    if (left in obstacles) {
+    if (obsCheck(left)) {
       console.log('There is something in the way!');
       return;
     }
@@ -62,10 +70,7 @@ function App() {
 
   const moveR = () => {
     const right = { ...bot, x: bot.x + 1 };
-    const objFinder = obstacles.map((j) => {
-      return j.x === right.x && j.y === right.y;
-    });
-    if (objFinder.includes(true)) {
+    if (obsCheck(right)) {
       console.log('There is something in the way!');
       return;
     }
