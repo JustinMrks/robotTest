@@ -28,6 +28,31 @@
   color: #61dafb;
 }
 
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.bigDaddy {
+  width: 100%;
+  padding: 10%;
+  transform: translateX(12%);
+}
+
+.row {
+  display: flex;
+}
+
+.block {
+  padding: 3%;
+  background-color: #61dafb;
+  border: 1px solid black;
+  width: 5%;
+  height: auto;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
